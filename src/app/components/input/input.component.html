@@ -1,0 +1,44 @@
+<ng-container *ngIf="data">
+    <ng-container *ngIf="data.radio === 'absolute'; else staticInput">
+        <div
+            #inputWrap
+            cdkDrag
+            cdkDragBoundary=".drag-container" 
+            (cdkDragEnded)="dragEnded($event)"
+            [cdkDragFreeDragPosition]="{
+                x: data.xAxis,
+                y: data.yAxis
+            }"
+            class="dragable dragable{{i}}"
+            [ngStyle]="{
+                'width': ''+data?.width+'px',
+                'height': ''+data?.height+'px',
+                'z-index': data.id
+            }"
+            (mousedown)="changeMousePointer('mousedown')"
+            (mouseup)="changeMousePointer('mouseup')">
+
+            <img src="./assets/close.svg" class="close-btn" (click)="close()">
+            <input 
+                class="form-control" 
+                placeholder="{{ data?.placeholder }}">
+
+        </div>
+    </ng-container>
+    
+    <ng-template #staticInput>
+        <div 
+            class="dragable"
+            [ngStyle]="{
+                'width': ''+data?.width+'px',
+                'height': ''+data?.height+'px',
+                'z-index': data.id
+            }">
+
+            <img src="./assets/close.svg" class="close-btn" (click)="close()">
+            <input 
+                class="form-control" 
+                placeholder="{{ data?.placeholder }}">
+        </div>
+    </ng-template>
+</ng-container>

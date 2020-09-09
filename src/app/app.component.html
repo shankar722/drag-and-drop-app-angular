@@ -1,0 +1,69 @@
+<div class="home-wrap d-flex flex-column align-items-start justify-content-end p-3">
+
+    <button class="btn btn-primary ml-auto mb-3" (click)="save()">Save</button>
+
+    <div class="drag-elements-wrap">
+
+        <!-- Left Side Bar-->
+        <div class="sidebar">
+            <div 
+                class="elements-list"
+                cdkDropList
+                #sidebar="cdkDropList"
+                [cdkDropListData]="elements"
+                [cdkDropListSortingDisabled]="true"
+                [cdkDropListConnectedTo]="[dropZone]"
+                (cdkDropListDropped)="elementsDrop($event)"
+            >
+                <mat-card 
+                    class="mat-custom-card mb-2" 
+                    *ngFor="let el of elements; let i = index;" 
+                    (cdkDragStarted)="dragStart($event)"
+                    (cdkDragReleased)="dragReleased($event)"
+                    cdkDrag
+                >
+                    {{ el.type }}
+                </mat-card>
+            </div>
+        </div>
+
+        <!-- Free Drag Container -->
+        <div 
+            class="drag-container" 
+            #dragContainer
+        >
+            <ng-container *ngFor="let dragable of dragables; let i = index;">
+
+                <ng-container *ngIf="dragable.type === 'input'">
+                    <app-input [data]="dragable" (closeCall)="removeElement($event)" (updateCoordinates)="updateCoordinates($event)"></app-input>
+                </ng-container>
+
+                <ng-container *ngIf="dragable.type === 'textarea'">
+                    <app-textarea [data]="dragable" (closeCall)="removeElement($event)" (updateCoordinates)="updateCoordinates($event)"></app-textarea>
+                </ng-container>
+
+                <ng-container *ngIf="dragable.type === 'button'">
+                    <app-button [data]="dragable" (closeCall)="removeElement($event)" (updateCoordinates)="updateCoordinates($event)"></app-button>
+                </ng-container>
+
+                <ng-container *ngIf="dragable.type === 'select'">
+                    <app-select [data]="dragable" (closeCall)="removeElement($event)" (updateCoordinates)="updateCoordinates($event)"></app-select>
+                </ng-container>
+            </ng-container>     
+            
+            <div 
+                class="drop-zone"
+                #dropZone="cdkDropList" 
+                cdkDropList 
+                [cdkDropListData]="dragables" 
+                (cdkDropListDropped)="elementsDrop($event)" 
+                [ngStyle]="{
+                    'z-index': isSideBarElementPicked ? '2' : '-1'
+                }"
+            >
+            </div>
+        </div>
+    </div>
+</div>
+
+

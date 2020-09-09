@@ -1,0 +1,45 @@
+<ng-container *ngIf="data">
+    <ng-container *ngIf="data.radio === 'absolute'; else staticButton">
+        <div
+            #buttonWrap
+            cdkDragBoundary=".drag-container" 
+            class="dragable dragable{{index}}"
+            cdkDrag
+            [ngStyle]="{
+                'width': ''+data?.width+'px',
+                'height': ''+data?.height+'px',
+                'z-index': data.id
+            }"
+            [cdkDragFreeDragPosition]="{
+                x: data.xAxis,
+                y: data.yAxis
+            }"
+            (mousedown)="changeMousePointer('mousedown')"
+            (mouseup)="changeMousePointer('mouseup')"
+            (cdkDragEnded)="dragEnded($event)" >
+                <img src="./assets/close.svg" class="close-btn" (click)="close()">
+                <button 
+                    class="btn btn-primary"
+                    width="{{ data?.width }}" 
+                    height="{{ data?.height }}">
+                        {{ data?.name }}
+                </button>
+        </div>
+    </ng-container>
+    
+    <ng-template #staticButton>
+        <div 
+            class="dragable">
+            <img src="./assets/close.svg" class="close-btn" (click)="close()">
+            <button 
+                class="btn btn-primary"
+                [ngStyle]="{
+                    'width': ''+data?.width+'px',
+                    'height': ''+data?.height+'px',
+                    'z-index': data.id
+                }">
+                    {{ data?.name }}
+            </button>
+        </div>
+    </ng-template>
+</ng-container>

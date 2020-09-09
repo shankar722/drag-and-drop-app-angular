@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Field details</h2>
+
+<mat-dialog-content class="mat-typography mb-3 d-flex flex-column" [formGroup]="fieldDetails">
+
+    <mat-form-field appearance="standard" class=" w-100">
+        <mat-label>Width</mat-label>
+        <input matInput type="number" placeholder="Please enter width" formControlName="width">
+        <mat-error *ngIf="fieldDetails.get('width').hasError('required')">This field is required</mat-error>
+        <mat-error *ngIf="fieldDetails.get('width').hasError('min')">Minimun width should be atleast 200</mat-error>
+        <mat-error *ngIf="fieldDetails.get('width').hasError('max')">Maximum width can be {{ this.data?.maxWidth }} </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" class=" w-100">
+        <mat-label>Height</mat-label>
+        <input matInput type="number" placeholder="Please enter height" formControlName="height">
+        <mat-error *ngIf="fieldDetails.get('height').hasError('required')">This field is required</mat-error>
+        <mat-error *ngIf="fieldDetails.get('height').hasError('min')">Minimun height should be atleast 50</mat-error>
+        <mat-error *ngIf="fieldDetails.get('height').hasError('max')">Maximum height can be {{ this.data?.maxHeight }} </mat-error>
+    </mat-form-field>
+
+    <mat-radio-group aria-label="Select an option" formControlName="radio">
+        <mat-radio-button value="absolute" class="mr-3">Absolute</mat-radio-button>
+        <mat-radio-button value="static">Static</mat-radio-button>
+    </mat-radio-group>
+
+    <ng-container *ngIf="data.name === 'input'">
+        <mat-form-field appearance="standard" class=" w-100">
+            <mat-label>Placeholder</mat-label>
+            <input matInput placeholder="Please enter placeholder" formControlName="placeholder">
+            <mat-error *ngIf="fieldDetails.get('placeholder').hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngIf="data.name === 'button'">
+        <mat-form-field appearance="standard" class=" w-100">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Please enter name" formControlName="name">
+            <mat-error *ngIf="fieldDetails.get('name').hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngIf="data.name === 'select'">
+        <mat-form-field appearance="standard" class=" w-100">
+            <mat-label>Options</mat-label>
+            <input matInput placeholder="Please enter name" formControlName="options">
+            <mat-hint>Options should be seperated by comma ","</mat-hint>
+            <mat-error *ngIf="fieldDetails.get('options').hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+    </ng-container>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button class="btn btn-outline-primary mr-3" (click)="close()">Cancel</button>
+  <button class="btn btn-primary" (click)="save()">Add</button>
+</mat-dialog-actions>

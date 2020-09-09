@@ -1,0 +1,9 @@
+.no-outline{
+    outline: none;
+    box-shadow: none;
+}
+
+.btn{
+    padding: 0.25rem 0.75rem;
+    @extend .no-outline;
+}

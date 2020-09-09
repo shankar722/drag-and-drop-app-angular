@@ -1,0 +1,43 @@
+<ng-container *ngIf="data">
+    <ng-container *ngIf="data.radio === 'absolute'; else staticSelect">
+        <div
+            #selectWrap
+            cdkDragBoundary=".drag-container" 
+            class="dragable dragable{{i}}"
+            cdkDrag
+            [cdkDragFreeDragPosition]="{
+                x: data.xAxis,
+                y: data.yAxis
+            }"
+            [ngStyle]="{
+                'width': ''+data?.width+'px',
+                'height': ''+data?.height+'px',
+                'z-index': data.id
+            }"
+            (cdkDragEnded)="dragEnded($event)"
+            (mousedown)="changeMousePointer('mousedown')"
+            (mouseup)="changeMousePointer('mouseup')">
+            
+            <img src="./assets/close.svg" class="close-btn" (click)="close()">
+            <select class="form-control">
+                <option *ngFor="let option of data?.options" value="{{option}}">{{option}}</option>
+            </select>
+        </div>
+    </ng-container>
+    
+    <ng-template #staticSelect>
+        <div 
+            class="dragable"
+            [ngStyle]="{
+                'width': ''+data?.width+'px',
+                'height': ''+data?.height+'px',
+                'z-index': data.id
+            }">
+
+            <img src="./assets/close.svg" class="close-btn" (click)="close()">
+            <select class="form-control">
+                <option *ngFor="let option of data?.options" value="{{option}}">{{option}}</option>
+            </select>
+        </div>
+    </ng-template>
+</ng-container>

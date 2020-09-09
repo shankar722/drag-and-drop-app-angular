@@ -1,0 +1,41 @@
+<ng-container *ngIf="data">
+    <ng-container *ngIf="data.radio === 'absolute'; else staticTextarea">
+        <div
+            #textareaWrap
+            cdkDragBoundary=".drag-container" 
+            class="dragable dragable{{i}}"
+            cdkDrag
+            (cdkDragEnded)="dragEnded($event)"
+            [cdkDragFreeDragPosition]="{
+                x: data.xAxis,
+                y: data.yAxis
+            }"
+            [ngStyle]="{
+                'width': ''+data?.width+'px',
+                'height': ''+data?.height+'px',
+                'z-index': data.id
+            }" 
+            (mousedown)="changeMousePointer('mousedown')"
+            (mouseup)="changeMousePointer('mouseup')">
+            <img src="./assets/close.svg" class="close-btn" (click)="close()">
+            <textarea
+                class="form-control">
+            </textarea>
+        </div>
+    </ng-container>
+    
+    <ng-template #staticTextarea>
+        <div
+            class="dragable"
+            [ngStyle]="{
+                'width': ''+data?.width+'px',
+                'height': ''+data?.height+'px',
+                'z-index': data.id
+            }">
+            <img src="./assets/close.svg" class="close-btn" (click)="close()">
+            <textarea
+                class="form-control">
+            </textarea>
+        </div>
+    </ng-template>
+</ng-container>

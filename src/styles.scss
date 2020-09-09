@@ -1,0 +1,119 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.home-wrap {
+    height: 100vh;
+    width: 100vw;
+
+    button {
+        padding: 0.25rem 0.75rem;
+    }
+
+    .drag-elements-wrap {
+        height: 100%;
+        width: 100%;
+        display: flex; 
+        grid-gap: 0.5rem;
+        grid-template-areas: "sidebar drag-cont drag-cont drag-cont drag-cont";
+        position: relative;
+
+        .sidebar {
+            grid-column: sidebar;
+            width: 20vw;
+            display: flex;
+            flex-direction: column;
+
+            .mat-custom-card{
+                border: 1px solid #ddd;
+                text-align: center;
+                z-index: 1;
+            }
+        }
+
+        .drag-container {
+            grid-column: drag-cont;
+            border: 2px dashed #ddd;
+            padding: 0.3rem;
+            width: 100%;
+            max-width: 80vw;
+            position: relative;
+            // z-index: -1;
+
+            .drop-zone{
+                opacity: 0;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: -1;
+            }
+
+            .dragable {
+                // width: 13rem;
+                // height: 5rem;
+                box-shadow: 0px 1px 6px #999;
+                display: inline-flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 0.5rem;
+                padding: 0.5rem;
+                position: relative;
+                cursor: grab;
+                // z-index: 1;
+                background-color: #fff;
+
+                %occupy-full-height-width{
+                    height: 100%;
+                    width: 100%;
+                }
+
+                input{
+                    @extend %occupy-full-height-width;
+                }
+
+                textarea{
+                    @extend %occupy-full-height-width;
+                }
+
+                select{
+                    @extend %occupy-full-height-width;
+                }
+
+                button{
+                    @extend %occupy-full-height-width;
+                }
+
+                .close-btn {
+                    width: 1rem;
+                    height: 1rem;
+                    position: absolute;
+                    top: -0.5rem;
+                    right:-0.5rem;
+                    cursor: pointer;
+                }
+            }
+
+            .mat-custom-card {
+                width: 10rem;
+                height: 5rem;
+                box-shadow: 0px 1px 6px #999;
+                display: inline-flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 0.5rem;
+                background-color: #fff;
+                z-index: 1;
+            }
+        }
+    }
+}
+
+.cdk-drag-preview{
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14);
+    display: inline-block;
+}
